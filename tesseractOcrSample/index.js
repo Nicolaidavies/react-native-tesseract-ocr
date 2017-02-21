@@ -1,6 +1,6 @@
 /**
  * ./index.js
- * @author  Jonathan Palma <tanpalma04@gmail.com> 
+ * @author  Jonathan Palma <tanpalma04@gmail.com>
  */
 'use strict';
 import React, { Component } from 'react';
@@ -10,17 +10,15 @@ import RNTesseractOcr from 'react-native-tesseract-ocr';
 
 var Button = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableOpacity;
 
-export default class App extends React.Component {
-  constructor(props, context){
-    super(props, context);
+class App extends Component {
+  constructor(props) {
+    super(props);
     this.state = { imgSource: null, ocrResult: null };
   }
 
-  selectPhoto(){
+  selectPhoto() {
     const options = {
       quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
       storageOptions: {
         skipBackup: true
       }
@@ -42,20 +40,20 @@ export default class App extends React.Component {
         var source;
 
         if (Platform.OS === 'android') {
-          source = {uri: response.uri, isStatic: true};
+          source = { uri: response.uri, isStatic: true };
         } else {
-          source = {uri: response.uri.replace('file://', ''), isStatic: true};
+          source = { uri: response.uri.replace('file://', ''), isStatic: true };
         }
 
         this.setState({ imgSource: source });
-        
-        RNTesseractOcr.startOcr(response.path, "LANG_ENGLISH")
+
+        RNTesseractOcr.startOcr(response.path, 'LANG_ENGLISH')
           .then((result) => {
             this.setState({ ocrResult: result });
-            console.log("OCR Result: ", result);
+            console.log('OCR Result: ', result);
           })
           .catch((err) => {
-            console.log("OCR Error: ", err);
+            console.log('OCR Error: ', err);
           })
           .done();
       }
@@ -63,13 +61,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <View style={styles.container}>
         <Button onPress={this.selectPhoto.bind(this)} >
-          <View style={[styles.img, styles.imgContainer, {marginBottom: 20}]}>
-          { this.state.imgSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.img} source={this.state.imgSource} />
-          }
+          <View style={[styles.img, styles.imgContainer, { marginBottom: 20 }]}>
+            {this.state.imgSource === null ? <Text>Select a Photo</Text> :
+              <Image style={styles.img} source={this.state.imgSource} />
+            }
           </View>
         </Button>
 
@@ -99,4 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = App;
+export default App;
