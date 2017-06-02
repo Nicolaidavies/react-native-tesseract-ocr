@@ -178,7 +178,7 @@
   // 
   //  //Whitelist - List of characters you want to detect
   //  //Example: You just want to detect digits (0-9)
-  //  tessBaseApi.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");
+      tessBaseApi.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");
   //  
   //  //Blacklist - List of characters you DON'T want to detect
   //  //Example: You DON'T want to detect some special characters
